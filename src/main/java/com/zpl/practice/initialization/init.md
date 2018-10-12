@@ -1,7 +1,7 @@
-#成员变量的初始化
+# 成员变量的初始化
 
 
-##起因
+## 起因
 来源牛客网中一道做错的习题
 ```java
 链接：https://www.nowcoder.com/questionTerminal/c2bfb1512dfa4a7eab773a5871a52402
@@ -35,13 +35,13 @@ public class Base
 }
 ```
 我当时的想法是这样的：
-- 创建`new Sub()`调用`Sub`类的构造函数，然后`Sub`构造函数的第一行隐式的使用`super()`调用`Base`类的构造函数，在`Base`类的构造函数中调用了`callName()`方法，输出了`baseName`属性，所以我直接选了`base`
-- **答案是`null`**，我看了下问题下面的解析，思路基本上是这样的：创建`new Sub()`调用`Sub`类的构造函数，然后`Sub`构造函数的第一行隐式的使用`super()`调用`Base`类的构造函数，在`Base`类的构造函数中调用了`Sub`类中的`callName()`方法，然后`callName()`方法输出`Sub`中的`baseName`，此时`baseName`并未初始化，所以输出是`null`
+- 创建`new Sub()`调用Sub类的构造函数，然后Sub构造函数的第一行隐式的使用`super()`调用Base类的构造函数，在Base类的构造函数中调用了`callName()`方法，输出了`baseName`属性，所以我直接选了base
+- **答案是`null`**，我看了下问题下面的解析，思路基本上是这样的：创建`new Sub()`调用Sub类的构造函数，然后Sub构造函数的第一行隐式的使用`super()`调用Base类的构造函数，在Base类的构造函数中调用了Sub类中的`callName()`方法，然后`callName()`方法输出Sub中的`baseName`，此时`baseName`并未初始化，所以输出是`null`
 - 然后我的问题就来了
 	1. 为什么父类中调用了子类的`callName()`方法
 	2. 为什么在调用子类`callName()`方法时，`baseName`属性未被初始化
 
-##测试
+## 测试
 - 为了方便我将父类和子类拆开来进行分析，<del>其实是我一开始想错了</del>，代码如下：
 ```java
 public class Base {
@@ -73,7 +73,7 @@ public class Sub extends Base {
 
 }
 ```
-###为什么父类调用了子类的`callName()`方法
+### 为什么父类调用了子类的`callName()`方法
 - 这个部分是我一开始挺不理解的地方，明明是父类构造函数中调用了`callName()`方法，实际上执行的却是子类的`callName()`方法
 - 我试着改了下代码确认了一下，Base的callName()方法中输出"base"，在Sub的callName()方法中输出“sub”，然后创建Sub类的实例`Base b = new Sub()`，结果确实是输出了sub
 	1. 那么Base中的callName()方法不就没用了吗？
@@ -102,7 +102,7 @@ public class Sub extends Base {
 - 想要输出运行时类型定义的成员变量，可以通过方法来返回
 - 那么如果编译时类型和运行时类型都是Sub，会执行哪个callName()方法？还是Sub的
 
-###为什么调用子类的时候方法的时候，变量没有初始化
+### 为什么调用子类的时候方法的时候，变量没有初始化
 - 这个问题也是我很不理解的地方，这两个变量都是在声明的时候进行了初始化，那么声明时初始化是什么时候初始化的？
 - 我先进行了如下测试：
 ```java
