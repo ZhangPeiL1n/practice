@@ -1,2 +1,4 @@
-# practice
-练习用项目
+# 写一些自己的东西
+
+## Java基础
+- [成员变量初始化顺序](https://github.com/ZhangPeiL1n/practice/edit/master/src/main/java/com/zpl/practice/initialization/init.md)
