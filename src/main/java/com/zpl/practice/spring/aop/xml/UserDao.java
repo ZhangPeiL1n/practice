@@ -1,13 +1,11 @@
-package com.zpl.practice.spring.aop;
+package com.zpl.practice.spring.aop.xml;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.stereotype.Component;
 
 /**
  * @author ZhangPeilin
  * @date 2018/10/24
  */
-@Component
 public class UserDao implements IUser {
 
     @Override
@@ -21,9 +19,11 @@ public class UserDao implements IUser {
     }
 
     public static void main(String[] args) {
-        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
+        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("beans-aop-xml.xml");
 
         IUser iUser = (IUser) context.getBean("userDao");
+
+        System.out.println(iUser.getClass());
 
         iUser.save();
         //iUser.doNothing("这是参数");

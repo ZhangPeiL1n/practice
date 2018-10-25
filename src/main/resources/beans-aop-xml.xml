@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <!--注入bean-->
+    <bean id="userDao" class="com.zpl.practice.spring.aop.xml.UserDao"/>
+    <bean id="orderDao" class="com.zpl.practice.spring.aop.xml.OrderDao"/>
+
+    <!--切面类-->
+    <bean id="aop" class="com.zpl.practice.spring.aop.xml.AOP"/>
+
+    <!--AOP配置-->
+    <aop:config>
+        <!--切入表达式，哪些方法被拦截-->
+        <aop:pointcut id="pointCut" expression="execution(* com.zpl.practice.spring.aop.xml.*.*(..))"/>
+        <!--指定切面-->
+        <aop:aspect ref="aop">
+            <!--指定拦截时执行切面的方法-->
+            <aop:before method="begin" pointcut-ref="pointCut"/>
+            <aop:after method="close" pointcut-ref="pointCut"/>
+        </aop:aspect>
+    </aop:config>
+</beans>

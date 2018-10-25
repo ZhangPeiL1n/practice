@@ -1,4 +1,4 @@
-package com.zpl.practice.spring.aop;
+package com.zpl.practice.spring.aop.factory;
 
 public interface IUser {
 
