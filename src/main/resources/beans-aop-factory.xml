@@ -1,30 +1,30 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:aop="http://www.springframework.org/schema/aop"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+<!--<?xml version="1.0" encoding="UTF-8"?>-->
+<!--<beans xmlns="http://www.springframework.org/schema/beans"-->
+<!--xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"-->
+<!--xmlns:context="http://www.springframework.org/schema/context"-->
+<!--xmlns:aop="http://www.springframework.org/schema/aop"-->
+<!--xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">-->
 
-    <!--包扫描,不写这个通过xml获取的context是获取不到用@Component注解注入的bean的-->
-    <context:component-scan base-package="com.zpl.practice.spring.aop.factory"/>
-    <!--开启springaop-->
-    <aop:aspectj-autoproxy/>
+<!--&lt;!&ndash;包扫描,不写这个通过xml获取的context是获取不到用@Component注解注入的bean的&ndash;&gt;-->
+<!--<context:component-scan base-package="com.zpl.practice.spring.aop.factory"/>-->
+<!--&lt;!&ndash;开启springaop&ndash;&gt;-->
+<!--<aop:aspectj-autoproxy/>-->
 
-    <!--非静态工厂-->
-    <!--非静态工厂要求先注入bean-->
-    <bean id="factory" class="com.zpl.practice.spring.aop.factory.ProxyFactory"/>
-    <!--工厂方法，需要多指定指定factory-bean-->
-    <!--这里class是IUser-->
-    <bean id="iUser" class="com.zpl.practice.spring.aop.factory.IUser" factory-bean="factory"
-          factory-method="getProxyInstance">
-        <constructor-arg index="0" ref="userDao"/>
-        <constructor-arg index="1" ref="AOP"/>
-    </bean>
+<!--&lt;!&ndash;非静态工厂&ndash;&gt;-->
+<!--&lt;!&ndash;非静态工厂要求先注入bean&ndash;&gt;-->
+<!--<bean id="factory" class="com.zpl.practice.spring.aop.factory.ProxyFactory"/>-->
+<!--&lt;!&ndash;工厂方法，需要多指定指定factory-bean&ndash;&gt;-->
+<!--&lt;!&ndash;这里class是IUser&ndash;&gt;-->
+<!--<bean id="iUser" class="com.zpl.practice.spring.aop.factory.IUser" factory-bean="factory"-->
+<!--factory-method="getProxyInstance">-->
+<!--<constructor-arg index="0" ref="userDao"/>-->
+<!--<constructor-arg index="1" ref="AOP"/>-->
+<!--</bean>-->
 
-    <!--静态工厂-->
-    <!--这里class属性是ProxyFactory-->
-    <!--<bean id="proxy" class="com.zpl.practice.spring.aop.factorytory.ProxyFactory" factory-method="getProxyInstance">-->
-    <!--<constructor-arg index="0" ref="userDao" />-->
-    <!--<constructor-arg index="1" ref="AOP" />-->
-    <!--</bean>-->
-</beans>
+<!--&lt;!&ndash;静态工厂&ndash;&gt;-->
+<!--&lt;!&ndash;这里class属性是ProxyFactory&ndash;&gt;-->
+<!--&lt;!&ndash;<bean id="proxy" class="com.zpl.practice.spring.aop.factorytory.ProxyFactory" factory-method="getProxyInstance">&ndash;&gt;-->
+<!--&lt;!&ndash;<constructor-arg index="0" ref="userDao" />&ndash;&gt;-->
+<!--&lt;!&ndash;<constructor-arg index="1" ref="AOP" />&ndash;&gt;-->
+<!--&lt;!&ndash;</bean>&ndash;&gt;-->
+<!--</beans>-->

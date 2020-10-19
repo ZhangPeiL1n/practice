@@ -3,7 +3,6 @@ package com.zpl.practice.spring.aop.weave;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.DeclareParents;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.stereotype.Component;
 
 /**
  * @author ZhangPeilin
@@ -12,7 +11,7 @@ import org.springframework.stereotype.Component;
 
 
 @Aspect
-@Component
+//@Component
 public class EnableSellerAspect {
 
     @DeclareParents(value = "com.zpl.practice.spring.aop.weave.NaiveWaiter", defaultImpl = SmartSeller.class)

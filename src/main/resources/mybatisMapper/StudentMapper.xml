@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace属性是名称空间，必须唯一 -->
+<mapper namespace="Student">
+
+    <!-- resultMap标签:映射实体与表
+         type属性：表示实体全路径名
+         id属性：为实体与表的映射取一个任意的唯一的名字
+    -->
+    <resultMap type="com.zpl.practice.mybatis.Student" id="studentMap">
+        <!-- id标签:映射主键属性
+             result标签：映射非主键属性
+             property属性:实体的属性名
+             column属性：表的字段名
+        -->
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="sal" column="sal"/>
+    </resultMap>
+
+
+    <sql id="key">
+        <trim suffixOverrides=",">
+            <if test="id!=null">
+                id,
+            </if>
+            <if test="id!=null">
+                name,
+            </if>
+            <if test="id!=null">
+                sal,
+            </if>
+        </trim>
+    </sql>
+    <sql id="value">
+        <trim suffixOverrides=",">
+            <if test="id!=null">
+                #{id},
+            </if>
+            <if test="id!=null">
+                #{name},
+            </if>
+            <if test="id!=null">
+                #{sal},
+            </if>
+        </trim>
+    </sql>
+    <insert id="insertByConditions" parameterType="com.zpl.practice.mybatis.Student">
+        insert into student (<include refid="key"/>) values (<include refid="value">)
+    </insert>
+    <insert id="add" parameterType="com.zpl.practice.mybatis.Student">
+        INSERT INTO my_test.student (ID, NAME, SAL)
+        VALUES (#{id}, #{name}, #{sal});
+    </insert>
+
+    <select id="findById" parameterType="int" resultMap="studentMap">
+        SELECT *
+        from student
+        where id = #{id};
+    </select>
+
+    <select id="findAll" resultMap="studentMap">
+        SELECT *
+        from student;
+    </select>
+
+    <delete id="delete" parameterType="int">
+        DELETE
+        FROM student
+        where id = #{id};
+    </delete>
+
+    <update id="update" parameterType="com.zpl.practice.mybatis.Student">
+        update student
+        set name = #{name},
+            sal  = #{sal}
+        where id = #{id};
+    </update>
+</mapper>

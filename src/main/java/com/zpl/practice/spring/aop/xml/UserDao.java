@@ -6,6 +6,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  * @author ZhangPeilin
  * @date 2018/10/24
  */
+//@Component
 public class UserDao implements IUser {
 
     @Override

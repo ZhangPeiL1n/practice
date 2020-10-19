@@ -1,13 +1,12 @@
 package com.zpl.practice.spring.aop.annotation;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.stereotype.Component;
 
 /**
  * @author ZhangPeilin
  * @date 2018/10/24
  */
-@Component
+//@Component
 public class OrderDao {
     public void save() {
         System.out.println("我已经进货了");
