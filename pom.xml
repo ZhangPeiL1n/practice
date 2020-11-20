@@ -30,12 +30,6 @@
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
-		</dependency>
-
 		<!--aop-->
 		<!--aspect-->
 		<!-- https://mvnrepository.com/artifact/org.aspectj/aspectjrt -->
@@ -84,34 +78,13 @@
 			<optional>true</optional>
 		</dependency>
 
-		<!--junit5-->
-		<!--<dependency>-->
-		<!--<groupId>org.junit.platform</groupId>-->
-		<!--<artifactId>junit-platform-launcher</artifactId>-->
-		<!--<version>1.2.0</version>-->
-		<!--<scope>test</scope>-->
-		<!--</dependency>-->
-		<!--<dependency>-->
-		<!--<groupId>org.junit.jupiter</groupId>-->
-		<!--<artifactId>junit-jupiter-engine</artifactId>-->
-		<!--<version>5.2.0</version>-->
-		<!--<scope>test</scope>-->
-		<!--</dependency>-->
-		<!--<dependency>-->
-		<!--<groupId>org.junit.vintage</groupId>-->
-		<!--<artifactId>junit-vintage-engine</artifactId>-->
-		<!--<version>5.2.0</version>-->
-		<!--<scope>test</scope>-->
-		<!--</dependency>-->
-		<!--junit5-->
+		<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-test -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
 
-		<!--junit4-->
-		<!--<dependency>-->
-		<!--<groupId>junit</groupId>-->
-		<!--<artifactId>junit</artifactId>-->
-		<!--<version>4.12</version>-->
-		<!--<scope>test</scope>-->
-		<!--</dependency>-->
 
 		<!--mock-->
 		<!-- https://mvnrepository.com/artifact/org.mockito/mockito-core -->
@@ -119,7 +92,12 @@
 			<groupId>org.mockito</groupId>
 			<artifactId>mockito-core</artifactId>
 			<version>2.23.4</version>
-			<scope>test</scope>
+			<scope>regularExpressionTest</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>4.5.13</version>
 		</dependency>
 		<!--		<dependency>-->
 		<!--			<groupId>cn.picclife.cust</groupId>-->
@@ -133,19 +111,10 @@
 		<!--			</exclusions>-->
 		<!--		</dependency>-->
 
-		<!--	spring session	-->
-		<!--		<dependency>-->
-		<!--			<groupId>org.springframework.boot</groupId>-->
-		<!--			<artifactId>spring-boot-starter-data-redis</artifactId>-->
-		<!--		</dependency>-->
-		<!--		<dependency>-->
-		<!--			<groupId>org.springframework.session</groupId>-->
-		<!--			<artifactId>spring-session-data-redis</artifactId>-->
-		<!--		</dependency>-->
-		<!--		<dependency>-->
-		<!--			<groupId>redis.clients</groupId>-->
-		<!--			<artifactId>jedis</artifactId>-->
-		<!--		</dependency>-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-amqp</artifactId>
+		</dependency>
 	</dependencies>
 
 	<build>
