@@ -6,7 +6,6 @@ import org.apache.pdfbox.rendering.ImageType;
 import org.apache.pdfbox.rendering.PDFRenderer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import sun.misc.BASE64Encoder;
 
 import javax.imageio.IIOImage;
 import javax.imageio.ImageIO;
@@ -29,58 +28,58 @@ public class Test {
 
     public static Logger logger = LoggerFactory.getLogger(Test.class);
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws Exception {
+        // pdf2Tif("C:\\Users\\张沛霖\\Desktop\\bef8a960504046ec933c439f24cddd99.pdf", "", "");
+        Iterator<ImageWriter> writers = ImageIO.getImageWritersByFormatName("TIFF");
+        ImageWriter writer = null;
+        while (writers.hasNext()) {
+            writer = writers.next();
+            if (writer instanceof com.twelvemonkeys.imageio.plugins.tiff.TIFFImageWriter) {
+                break;
+            }
+        }
 
-        // BufferedImage bufferedImage = ImageIO.read(new File("C:\\Users\\张沛霖\\Desktop\\测试图片.jpg"));
-        //
-        // ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        // ImageIO.write(bufferedImage, "jpg", stream);
-        // BASE64Encoder encoder = new BASE64Encoder();
-        // //转换成base64串
-        // String png_base64 = encoder.encodeBuffer(stream.toByteArray()).trim();
-        // //删除 \r\n
-        // png_base64 = png_base64.replaceAll("\n", "").replaceAll("\r", "");
-        // System.out.println("data:image/jpg;base64,"+png_base64);
-        pdf2Tif("C:\\Users\\张沛霖\\Desktop\\bef8a960504046ec933c439f24cddd99.pdf", "", "");
+        writers = ImageIO.getImageWritersByFormatName("TIFF");
+        ImageWriter writer1 = null;
+        while (writers.hasNext()) {
+            writer1 = writers.next();
+            if (writer1 instanceof com.twelvemonkeys.imageio.plugins.tiff.TIFFImageWriter) {
+                break;
+            }
+        }
+
+        System.out.println(writer == writer1);
     }
 
 
-    public static boolean pdf2Tif(String pdfPath, String tifPath, String type) throws IOException {
-        // long pdfStart = System.currentTimeMillis();
-        // //从对象存储取 pdf
-        // byte[] hxTifArray  = hcpService.getObjectToByteArray(pdfPath);
-        // long pdfEnd = System.currentTimeMillis();
-        // logger.info("从对象存储获取 pdf 耗时：{} ms, pdf 长度为：{},路径为：{}",pdfEnd - pdfStart,(hxTifArray != null ? hxTifArray.length : "hxTifArray 为 null"),pdfPath);
-        // if(hxTifArray == null || hxTifArray.length == 0) {
-        //     throw new IOException("获取对象存储 PDF 文件失败,路径为：" + pdfPath + ",pdf 长度为：" + (hxTifArray != null ? 0 : "hxTifArray 为 null"));
-        // }
-
+    public static boolean pdf2Tif(String pdfPath, String tifPath, String type) throws Exception {
         File file = new File(pdfPath);
         FileInputStream fileInputStream = new FileInputStream(file);
 
         byte[] byteArray = IOUtils.toByteArray(fileInputStream);
-
         logger.info("{}", byteArray.length);
+
+        Iterator<ImageWriter> writers = ImageIO.getImageWritersByFormatName("TIFF");
+        ImageWriter writer = null;
+        while (writers.hasNext()) {
+            writer = writers.next();
+            if (writer instanceof com.twelvemonkeys.imageio.plugins.tiff.TIFFImageWriter) {
+                break;
+            }
+        }
+        if (!(writer instanceof com.twelvemonkeys.imageio.plugins.tiff.TIFFImageWriter)) {
+            throw new Exception("找不到 twelvemonkeys TIFFImageWriter");
+        }
         try (PDDocument doc = PDDocument.load(byteArray);
              ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
              ImageOutputStream imageOutputStream = ImageIO.createImageOutputStream(byteArrayOutputStream)) {
 
             //pdf 页数
             int pageCount = doc.getNumberOfPages();
-            logger.info("pdf 总页数：{}", pageCount);
             // 根据PDDocument对象创建pdf渲染器
             PDFRenderer renderer = new PDFRenderer(doc);
 
-            Iterator<ImageWriter> writers = ImageIO.getImageWritersByFormatName("TIFF");
-            ImageWriter writer = writers.next();
-            ImageWriteParam param = writer.getDefaultWriteParam();
-            //选择压缩模式
-            param.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
-            //压缩算法
-            param.setCompressionType("ZLib");
-            //压缩率 0.1 ~ 1，压缩率小 文件小，耗时长
-            param.setCompressionQuality(1f);
-
+            // 合并多页 pdf，将每页 pdf 分别 render 为一个 bufferedImage，然后合并成一个大的 bufferedImage
             BufferedImage[] bufferedImages = new BufferedImage[pageCount];
             int totalHeight = 0;
             //分别 render 每页 pdf
@@ -92,7 +91,6 @@ public class Test {
                 bufferedImages[i] = image;
                 //计算图片总高度
                 totalHeight += image.getHeight();
-
             }
 
             //设置图片总高度
@@ -113,23 +111,13 @@ public class Test {
             }
             graphics.dispose();
 
-            ByteArrayOutputStream stream = new ByteArrayOutputStream();
-            ImageIO.write(combinedImage, "jpg", stream);
-            BASE64Encoder encoder = new BASE64Encoder();
-            //转换成base64串
-            String png_base64 = encoder.encodeBuffer(stream.toByteArray()).trim();
-            //删除 \r\n
-            png_base64 = png_base64.replaceAll("\n", "").replaceAll("\r", "");
-            System.out.println("data:image/jpg;base64," + png_base64);
-            // ByteArrayOutputStream stream = new ByteArrayOutputStream();
-            // ImageIO.write(combinedImage, "jpg", stream);
-            // BASE64Encoder encoder = new BASE64Encoder();
-            // //转换成base64串
-            // String png_base64 = encoder.encodeBuffer(stream.toByteArray()).trim();
-            // //删除 \r\n
-            // png_base64 = png_base64.replaceAll("\n", "").replaceAll("\r", "");
-            // System.out.println("data:image/jpg;base64,"+png_base64);
-
+            ImageWriteParam param = writer.getDefaultWriteParam();
+            //选择压缩模式
+            param.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
+            //压缩算法
+            param.setCompressionType("ZLib");
+            //压缩率 0.1 ~ 1，压缩率小 文件小，耗时长
+            param.setCompressionQuality(1f);
 
             //写入输出流中
             writer.setOutput(imageOutputStream);
@@ -137,22 +125,13 @@ public class Test {
             writer.write(null, new IIOImage(combinedImage, null, null), param);
             long writeEnd = System.currentTimeMillis();
             logger.info("写入 tif 耗时：{} ms,tif byteArray 长度：{}", writeEnd - writeStart, byteArrayOutputStream.toByteArray().length);
-
-            //向对象存储中写入 tif
-            // long tifStart = System.currentTimeMillis();
-            // boolean hxTifFileBoolean = hcpService.createObject(byteArrayOutputStream.toByteArray(), tifPath);
-            // long tifEnd = System.currentTimeMillis();
-            // logger.info("向对象存储存储 tif 耗时：{} ms",tifEnd - tifStart);
-            // if(!hxTifFileBoolean) {
-            //     logger.error("向对象存储中创建 tif 文件失败，路径为：{}", tifPath);
-            //     return false;
-            // } else {
-            //     logger.info("向对象存储中创建 tif 文件成功，路径为：{}",tifPath);
-            // }
         } catch (IOException e) {
             logger.error("pdf文件转tif异常,文件名:{},异常信息:{}", pdfPath,
                     e.getMessage());
+            e.printStackTrace();
             return false;
+        } finally {
+            writer.dispose();
         }
         return true;
     }
