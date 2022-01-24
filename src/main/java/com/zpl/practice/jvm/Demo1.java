@@ -6,7 +6,7 @@ package com.zpl.practice.jvm;
  */
 public class Demo1 {
     //jvm 参数
-    //-XX:NewSize=5242880
+    // -XX:NewSize=5242880
     // -XX:MaxNewSize=5242880
     // -XX:InitialHeapSize=10485760
     // -XX:MaxHeapSize=10485760

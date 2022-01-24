@@ -3,6 +3,7 @@ package com.zpl.practice.spring.aop.annotation;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
+import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
 
@@ -10,8 +11,8 @@ import java.util.Arrays;
  * @author ZhangPeilin
  * @date 2018/10/24
  */
-//@Component
-//@Aspect
+@Component
+@Aspect
 public class AOP {
 
     /**

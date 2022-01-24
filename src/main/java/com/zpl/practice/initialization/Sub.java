@@ -11,12 +11,12 @@ public class Sub extends Base {
 
     public String baseName = "Sub";
 
-    public Sub(){
+    public Sub() {
         System.out.println(baseName);
     }
 
     @Override
-    public void callName(){
+    public void callName() {
         System.out.println(baseName);
     }
 

@@ -1,5 +1,6 @@
 package com.zpl.practice.spring.aop.factory;
 
+import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Proxy;
 
 /**
@@ -10,22 +11,26 @@ import java.lang.reflect.Proxy;
 
 public class ProxyFactory {
 
-
-    public Object getProxyInstance(Object target, AOP aop) {
-
-        return Proxy.newProxyInstance(target.getClass().getClassLoader(), target.getClass().getInterfaces(), (proxy, method, args) -> {
+    public static void main(String[] args) {
+        UserDao userDao = new UserDao();
+        AOP aop = new AOP();
+        InvocationHandler invocationHandler = (proxy, method, args1) -> {
+            //前置增强
             aop.begin();
             //System.out.println(args);
-            System.out.println("调用了" + target + "的" + method.getName() + "方法");
-            if (args != null && args.length > 0) {
-                for (Object object : args) {
+            System.out.println("调用了" + proxy + "的" + method.getName() + "方法");
+            if (args1 != null && args1.length > 0) {
+                for (Object object : args1) {
                     System.out.println(object.toString());
                 }
             }
-            Object returnValue = method.invoke(target, args);
+            Object returnValue = method.invoke(proxy, args1);
+            //后置增强
             aop.close();
-
             return returnValue;
-        });
+        };
+        Object proxyInstance = Proxy.newProxyInstance(userDao.getClass().getClassLoader(), userDao.getClass().getInterfaces(), invocationHandler);
+
+        ((IUser) proxyInstance).save();
     }
 }

@@ -1,12 +1,13 @@
 package com.zpl.practice.spring.aop.annotation;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.stereotype.Component;
 
 /**
  * @author ZhangPeilin
  * @date 2018/10/24
  */
-//@Component
+@Component
 public class UserDao implements IUser {
 
     @Override

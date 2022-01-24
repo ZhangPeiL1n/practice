@@ -38,9 +38,9 @@ public enum NotifyType {
 
 
     public static void main(String[] args) {
-        String type = "email";
-        String msg = "信息";
-        NotifyType.valueOf(type).getNotifyInterface().doNotify(msg);
+        // String type = "email";
+        // String msg = "信息";
+        // NotifyType.valueOf(type).getNotifyInterface().doNotify(msg);
         // NotifyType email = NotifyType.email;
         // System.out.println(email.name());
     }

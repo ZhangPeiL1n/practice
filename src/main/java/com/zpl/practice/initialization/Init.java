@@ -14,7 +14,7 @@ public class Init {
      */
     private String name = "张三";
 
-    public Init(){
+    public Init() {
         //输出name,此时为张三
         System.out.println(name);
         //将name赋值为李四

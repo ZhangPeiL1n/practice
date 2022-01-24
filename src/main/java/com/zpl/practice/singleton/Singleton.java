@@ -1,7 +1,7 @@
 package com.zpl.practice.singleton;
 
 /**
- * dcl 双检查锁 创建单例
+ * DCL,double check lock 双检查锁 创建单例
  * <p>
  * 1. final 防止类被继承
  * 2. 私有构造器防止外部创建实例
@@ -13,10 +13,9 @@ package com.zpl.practice.singleton;
  */
 public final class Singleton {
     private Singleton() {
-
     }
 
-    private static Singleton instance;
+    private volatile static Singleton instance;
 
     public static Singleton getInstance() {
         if (instance == null) {

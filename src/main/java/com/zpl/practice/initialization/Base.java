@@ -11,11 +11,11 @@ public class Base {
 
     public String baseName = "Base";
 
-    public Base(){
+    public Base() {
         callName();
     }
 
-    public void callName(){
+    public void callName() {
         System.out.println("base");
     }
 }

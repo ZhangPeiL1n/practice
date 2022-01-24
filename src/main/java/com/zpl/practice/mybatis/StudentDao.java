@@ -79,21 +79,21 @@ public class StudentDao {
     }
 
     public static void main(String[] args) {
-        StudentDao studentDao = new StudentDao();
-
-        //Student student = new Student(2, "zhangpeilin", 100000D);
-        //studentDao.add(student);
-
-        //Student student = studentDao.findById(1);
-        //System.out.println(student.getName());
-
-        //List<Student> students = studentDao.findAll();
-        //System.out.println(students.size());
-        Student student = studentDao.findById(2);
-        student.setName("nintendo switch");
-        student.setSal(20000D);
-        studentDao.update(student);
-
-        studentDao.delete(1);
+        // StudentDao studentDao = new StudentDao();
+        //
+        // //Student student = new Student(2, "zhangpeilin", 100000D);
+        // //studentDao.add(student);
+        //
+        // //Student student = studentDao.findById(1);
+        // //System.out.println(student.getName());
+        //
+        // //List<Student> students = studentDao.findAll();
+        // //System.out.println(students.size());
+        // Student student = studentDao.findById(2);
+        // student.setName("nintendo switch");
+        // student.setSal(20000D);
+        // studentDao.update(student);
+        //
+        // studentDao.delete(1);
     }
 }

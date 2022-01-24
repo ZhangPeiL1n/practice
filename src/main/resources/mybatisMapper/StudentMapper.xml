@@ -23,26 +23,26 @@
 
     <sql id="key">
         <trim suffixOverrides=",">
-            <if test="id!=null">
+            <if regularExpressionTest="id!=null">
                 id,
             </if>
-            <if test="id!=null">
+            <if regularExpressionTest="id!=null">
                 name,
             </if>
-            <if test="id!=null">
+            <if regularExpressionTest="id!=null">
                 sal,
             </if>
         </trim>
     </sql>
     <sql id="value">
         <trim suffixOverrides=",">
-            <if test="id!=null">
+            <if regularExpressionTest="id!=null">
                 #{id},
             </if>
-            <if test="id!=null">
+            <if regularExpressionTest="id!=null">
                 #{name},
             </if>
-            <if test="id!=null">
+            <if regularExpressionTest="id!=null">
                 #{sal},
             </if>
         </trim>

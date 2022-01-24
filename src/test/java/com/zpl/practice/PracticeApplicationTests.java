@@ -4,20 +4,25 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
-import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.amqp.rabbit.config.SimpleRabbitListenerContainerFactory;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.core.env.Environment;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.context.ConfigurableWebApplicationContext;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class PracticeApplicationTests {
+
+    Logger logger = LoggerFactory.getLogger(PracticeApplicationTests.class);
 
     @MockBean
     private List<String> list;
@@ -27,6 +32,20 @@ public class PracticeApplicationTests {
 
     @Autowired
     private Environment environment;
+
+
+    @Value("${no.sense.string:false}")
+    private boolean isTestString;
+
+    @Test
+    public void TestLogger() {
+        logger.debug(print());
+    }
+
+    public String print() {
+        System.out.println("aaaaaaaaaaa");
+        return "null";
+    }
 
     @Test
     public void contextLoads() {
@@ -43,24 +62,18 @@ public class PracticeApplicationTests {
     }
 
     @Test
-    public void testProperties() throws InvocationTargetException, IllegalAccessException, NoSuchMethodException {
-        CachingConnectionFactory factory = (CachingConnectionFactory) context.getBean("xinzhiCachingConnectionFactory");
-        System.out.println("username " + factory.getUsername());
-        System.out.println("host " + factory.getHost());
-        System.out.println("vhost " + factory.getVirtualHost());
-        System.out.println("publisherConfirms " + factory.isPublisherConfirms());
-        System.out.println("publisherReturns " + factory.isPublisherReturns());
-        System.out.println("port " + factory.getPort());
+    public void testProperties() {
+        RabbitTemplate template = (RabbitTemplate) context.getBean("zhangpeilinTemplate");
+        SimpleRabbitListenerContainerFactory listenerContainerFactory = (SimpleRabbitListenerContainerFactory) context.getBean("zhangpeilinListenerContainerFactory");
 
+        System.out.println(template);
+
+        System.out.println(listenerContainerFactory);
     }
 
     @Test
     public void test() {
-        //
-        boolean b = Boolean.parseBoolean("");
-
-        String f = "user_modify_password,forget_password,login-register,userlogin,register";
-        System.out.println(f.contains("login-register"));
+        System.out.println(isTestString);
 
 
     }
