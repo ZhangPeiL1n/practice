@@ -6,10 +6,7 @@ import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.amqp.rabbit.config.SimpleRabbitListenerContainerFactory;
-import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.core.env.Environment;
@@ -22,7 +19,7 @@ import java.util.List;
 @SpringBootTest
 public class PracticeApplicationTests {
 
-    Logger logger = LoggerFactory.getLogger(PracticeApplicationTests.class);
+    private final Logger logger = LoggerFactory.getLogger(PracticeApplicationTests.class);
 
     @MockBean
     private List<String> list;
@@ -33,19 +30,6 @@ public class PracticeApplicationTests {
     @Autowired
     private Environment environment;
 
-
-    @Value("${no.sense.string:false}")
-    private boolean isTestString;
-
-    @Test
-    public void TestLogger() {
-        logger.debug(print());
-    }
-
-    public String print() {
-        System.out.println("aaaaaaaaaaa");
-        return "null";
-    }
 
     @Test
     public void contextLoads() {
@@ -60,22 +44,4 @@ public class PracticeApplicationTests {
 
         Assert.assertEquals("HelloWorld", result);
     }
-
-    @Test
-    public void testProperties() {
-        RabbitTemplate template = (RabbitTemplate) context.getBean("zhangpeilinTemplate");
-        SimpleRabbitListenerContainerFactory listenerContainerFactory = (SimpleRabbitListenerContainerFactory) context.getBean("zhangpeilinListenerContainerFactory");
-
-        System.out.println(template);
-
-        System.out.println(listenerContainerFactory);
-    }
-
-    @Test
-    public void test() {
-        System.out.println(isTestString);
-
-
-    }
-
 }

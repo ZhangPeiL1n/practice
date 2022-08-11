@@ -1,6 +1,7 @@
 package com.zpl.practice.rocketmq;
 
 import org.apache.rocketmq.client.consumer.DefaultMQPushConsumer;
+import org.apache.rocketmq.client.consumer.MessageSelector;
 import org.apache.rocketmq.client.consumer.listener.ConsumeOrderlyContext;
 import org.apache.rocketmq.client.consumer.listener.ConsumeOrderlyStatus;
 import org.apache.rocketmq.client.consumer.listener.MessageListenerOrderly;
@@ -19,7 +20,8 @@ public class OrderlyConsumer {
     public static void main(String[] args) throws MQClientException {
         DefaultMQPushConsumer consumer = new DefaultMQPushConsumer("TestConsumerGroup");
         consumer.setNamesrvAddr("");
-        consumer.subscribe("topic", "*");
+        consumer.subscribe("TestTopic", "tag||A");
+        consumer.subscribe("TestTopic", MessageSelector.bySql("a > 1 || b = 1"));
         consumer.registerMessageListener(new MessageListenerOrderly() {
             @Override
             public ConsumeOrderlyStatus consumeMessage(List<MessageExt> list, ConsumeOrderlyContext consumeOrderlyContext) {

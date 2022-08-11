@@ -28,7 +28,7 @@ public class PracticeApplication implements ApplicationContextAware {
 
     public static void main(String[] args) {
 
-        ConfigurableApplicationContext context = SpringApplication.run(PracticeApplication.class, args);
+         ConfigurableApplicationContext context = SpringApplication.run(PracticeApplication.class, args);
         System.out.println("创建的 context 是：" + context);
     }
 

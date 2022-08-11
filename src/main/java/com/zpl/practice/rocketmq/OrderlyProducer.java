@@ -19,9 +19,17 @@ public class OrderlyProducer {
 
     public static void main(String[] args) throws MQBrokerException, RemotingException, InterruptedException, MQClientException {
         DefaultMQProducer producer = new DefaultMQProducer("TestProducerGroup");
+        // 开启消息追踪
+        // DefaultMQProducer producer = new DefaultMQProducer("TestProducerGroup",true);
         producer.setNamesrvAddr("");
         int orderId = 0;
-        Message message = new Message("TestTopic", "".getBytes());
+        // 给消息设置 tag
+        Message message = new Message("TestTopic", "tag", "".getBytes());
+        // 给消息设置自定义属性
+        message.putUserProperty("a", "1");
+        message.putUserProperty("b", "6");
+        // 设置延迟消息
+        message.setDelayTimeLevel(3);
         producer.send(message, new MessageQueueSelector() {
             @Override
             public MessageQueue select(List<MessageQueue> list, Message message, Object o) {
