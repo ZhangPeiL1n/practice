@@ -5,6 +5,7 @@ import java.util.Arrays;
 /**
  * 选择排序
  * 选择排序是每趟选出最大的或最小的，只交换一次
+ * O(n2)
  *
  * @author ZhangPeiL1n
  * @date 2022/8/14 14:27
