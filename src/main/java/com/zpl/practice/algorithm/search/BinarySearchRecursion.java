@@ -1,13 +1,13 @@
 package com.zpl.practice.algorithm.search;
 
 /**
- * 二分查找法
+ * 二分查找法 - 递归
  * 二分法的前提是元素有序
  *
  * @author ZhangPeiL1n
  * @date 2022/8/14 14:40
  **/
-public class BinarySearch {
+public class BinarySearchRecursion {
 
     public static int binarySearch(int[] source, int target, int low, int high) {
         // 这里不用在意求和是奇数的情况，java 会向下取整，即 5 / 2 = 2

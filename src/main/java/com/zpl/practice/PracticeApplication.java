@@ -25,23 +25,11 @@ import java.util.List;
 @EnableConfigurationProperties
 public class PracticeApplication implements ApplicationContextAware {
 
-
     public static void main(String[] args) {
-
-         ConfigurableApplicationContext context = SpringApplication.run(PracticeApplication.class, args);
-        System.out.println("创建的 context 是：" + context);
+        SpringApplication.run(PracticeApplication.class, args);
     }
 
-    //@Bean
-    // public CommandLineRunner commandLineRunner(ApplicationContext context){
-    // 	return args -> {
-    // 		System.out.println("the beans provided by spring boot");
-    // 		String[] names = context.getBeanDefinitionNames();
-    // 		for (String name : names){
-    // 			System.out.println(name);
-    // 		}
-    // 	};
-    // }
+
     @Bean
     public HttpMessageConverters fastJsonHttpMessageConverters() {
         FastJsonHttpMessageConverter fastConverter = new FastJsonHttpMessageConverter();
